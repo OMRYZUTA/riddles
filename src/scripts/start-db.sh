@@ -10,7 +10,7 @@ echo "echo stop & remove old docker [$SERVER] and starting new fresh instance of
   (docker rm $SERVER || :) && \
   docker run --name $SERVER -e POSTGRES_PASSWORD=$PW \
   -e PGPASSWORD=$PW \
-  -p 5444:5444 \
+  -p 5436:5432 \
   -d postgres
 
 # wait for pg to start
@@ -18,5 +18,5 @@ echo "sleep wait for pg-server [$SERVER] to start";
 SLEEP 3;
 
 # create the db
-echo "CREATE DATABASE $DB ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres
+echo "CREATE DATABASE $DB ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U daily-riddle
 echo "\l" | docker exec -i $SERVER psql -U postgres
