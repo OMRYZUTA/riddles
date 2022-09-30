@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
-import {RiddleEntity} from "./models/riddle.entity";
+import {RiddleEntity} from "../db/entity/riddle.entity";
 import {Repository} from "typeorm";
 
 @Injectable()
@@ -18,5 +18,10 @@ export class RiddleService {
     }
     findAll(): Promise<RiddleEntity[]> {
         return this.riddleRepository.find();
+    }
+    findOne(id:string){
+        return this.riddleRepository.findOne({
+            where: {id}
+        })
     }
 }

@@ -3,7 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import {RiddleModule} from "./riddle/riddle.module";
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {RiddleEntity} from "./riddle/models/riddle.entity";
+import {RiddleEntity} from "./db/entity/riddle.entity";
+import { RiddlePeriodHandlerService } from './background/riddle-period-handler/riddle-period-handler.service';
+import { RiddlePeriodModule } from './riddle-period/riddle-period.module';
+import {RiddlePeriodEntity} from "./db/entity/riddle-period.entity";
+import { DailyRiddleModule } from './daily-riddle/daily-riddle.module';
 
 @Module({
   imports: [
@@ -14,12 +18,13 @@ import {RiddleEntity} from "./riddle/models/riddle.entity";
       username: 'riddle',
       password: 'riddle',
       database: 'riddle',
-      entities: [RiddleEntity],
+      entities: [RiddleEntity,RiddlePeriodEntity],
       synchronize: false,
       autoLoadEntities: true,
     }),
-      RiddleModule],
+      RiddleModule,RiddlePeriodModule, DailyRiddleModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RiddlePeriodHandlerService],
 })
-export class AppModule {}
+export class AppModule {
+}
