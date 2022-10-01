@@ -10,12 +10,12 @@ describe('RiddlePeriodService', () => {
     Promise.resolve(
      []
     )),
-    findBy: jest.fn().mockImplementation(({column})=>
+    findOne: jest.fn().mockImplementation(({column})=>
     {
       let period = new RiddlePeriodEntity()
       period.isActive = true
       return  Promise.resolve(
-            [period]
+            period
         )}
     ),
 
@@ -41,7 +41,8 @@ describe('RiddlePeriodService', () => {
 
   describe('fetchDailyRiddle when there is an active riddle period', () => {
     it('should return the daily riddle entity', async() => {
-      await expect( service.fetchActiveRiddle()).resolves.toBeInstanceOf(RiddlePeriodEntity)
+      const period = await service.fetchActiveRiddle()
+       expect(period ).toBeInstanceOf(RiddlePeriodEntity)
     });
   });
 });
