@@ -18,6 +18,6 @@ export class DailyRiddleController {
     }
 
     private getMiscData() {
-        return {linkToShare:`http://localhost:3015/daily_riddle`}
+        return {linkToShare:`http://localhost:3000/daily_riddle`}
     }
 }
