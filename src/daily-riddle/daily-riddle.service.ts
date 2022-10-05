@@ -14,7 +14,7 @@ export class DailyRiddleService {
     async getDailyRiddle() {
         let riddlePeriod = await this.riddlePeriodSerivce.fetchActiveRiddle()
         if (riddlePeriod == undefined) {
-            Logger.error('No Active Riddle period')
+            Logger.log('No Active Riddle period')
             await this.activateNewRiddle();
         } else {
             if(await this.riddlePeriodSerivce.isValidPeriod(riddlePeriod.id)){

@@ -10,9 +10,6 @@ export class RiddleService {
         @InjectRepository(RiddleEntity)
         private riddleRepository: Repository<RiddleEntity>,
     ) {}
-    initDailyRiddle(){
-
-    }
     getDailyRiddle(){
         return this.dailyRiddle
     }
