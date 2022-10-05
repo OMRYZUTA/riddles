@@ -21,7 +21,7 @@ export class DailyRiddleService {
                 Logger.log(`Fetching Active riddle, riddle id: ${riddlePeriod.riddleId} riddle period id: ${riddlePeriod.id}`)
                 this.dailyRiddle = await this.riddleService.findOne(riddlePeriod.riddleId)
             }else{
-                Logger.log(`Riddle period time passed, dissabling riddle ${riddlePeriod.riddleId}, and riddle period ${riddlePeriod.id}`)
+                Logger.log(`Riddle period time passed, disabling riddle ${riddlePeriod.riddleId}, and riddle period ${riddlePeriod.id}`)
                 await this.riddleService.disableRiddle(riddlePeriod.riddleId)
                 await this.riddlePeriodSerivce.endPeriod(riddlePeriod.id)
                 await this.activateNewRiddle();
