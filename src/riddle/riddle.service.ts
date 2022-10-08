@@ -27,14 +27,14 @@ export class RiddleService {
     }
 
     async disableRiddle(riddleId: string) {
-        let riddlePeriod = await this.riddleRepository.findOne( { where: {
+        let riddle = await this.riddleRepository.findOne( { where: {
                 id: riddleId,
             }})
-        if(riddlePeriod == undefined){
+        if(riddle == undefined){
             console.log(`Error riddle period id :${riddleId} not exist`)
             throw new Error('error')
         }
-        riddlePeriod.isActive = false
-        await this.riddleRepository.save(riddlePeriod)
+        riddle.isActive = false
+        await this.riddleRepository.save(riddle)
     }
 }

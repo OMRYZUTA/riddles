@@ -31,25 +31,23 @@ export class RiddlePeriodService {
         return this.riddlePeriodRepository.save(riddlePeriod);
     }
 
-    async endPeriod(riddlePeriodId: string) {
-        let riddlePeriod = await this.riddlePeriodRepository.findOne({
+    async endPeriods(riddleId: string |undefined) {
+        let riddlePeriods = await this.riddlePeriodRepository.find({
             where: {
-                id: riddlePeriodId,
+                riddleId: riddleId,
             }
         })
-        if (riddlePeriod == undefined) {
-            console.log(`Error riddle period id :${riddlePeriodId} not exist`)
+        if (riddlePeriods.length === 0) {
+            console.log(`Error there are no periods for riddle id:${riddleId}`)
             throw new Error('error')
         }
-        riddlePeriod.isActive = false
-        await this.riddlePeriodRepository.save(riddlePeriod)
+        riddlePeriods.forEach(period =>{
+            period.isActive = false
+            this.riddlePeriodRepository.save(period)
+        })
     }
 
-    async isValidPeriod(periodId: string) {
-        let period = await this.riddlePeriodRepository.findOne({where:{id: periodId}})
-        if( period == undefined){
-            throw new Error(`Period with id: ${periodId} does not exists`)
-        }
+    async isValidPeriod(period: RiddlePeriodEntity) {
         let diff = Math.abs(new Date(Date.now()).getTime() - period.startDate.getTime())
         let diffDays = diff / (1000 * 3600 * 24)
         return diffDays < 1
