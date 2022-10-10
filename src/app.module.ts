@@ -8,19 +8,23 @@ import { RiddlePeriodModule } from './riddle-period/riddle-period.module';
 import {RiddlePeriodEntity} from "./db/entity/riddle-period.entity";
 import { DailyRiddleModule } from './daily-riddle/daily-riddle.module';
 import {EventEmitterModule} from "@nestjs/event-emitter";
+import {ConfigModule} from "@nestjs/config";
 
 @Module({
-  imports: [
+  imports: [ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: process.env.DB_HOST,
       port: 5432,
-      username: 'riddle',
-      password: 'riddle',
-      database: 'riddle',
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      synchronize: true,
+      migrationsTableName: 'migrations',
+      logging: false,
       entities: [RiddleEntity,RiddlePeriodEntity],
-      synchronize: false,
       autoLoadEntities: true,
+
     }),
     EventEmitterModule.forRoot(),
       RiddleModule,RiddlePeriodModule, DailyRiddleModule],
