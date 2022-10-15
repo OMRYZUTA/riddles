@@ -10,6 +10,7 @@ export default () => ({
     database: process.env.DB_NAME,
     entities: [RiddleEntity, RiddlePeriodEntity],
     synchronize: true,
+    migrationsRun: true,
     migrationsTableName: 'migrations',
     logging: false,
     name: 'default',

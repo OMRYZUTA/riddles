@@ -21,6 +21,7 @@ import {ConfigModule} from "@nestjs/config";
       database: process.env.DB_NAME,
       synchronize: true,
       migrationsTableName: 'migrations',
+      migrationsRun: true,
       logging: false,
       entities: [RiddleEntity,RiddlePeriodEntity],
       autoLoadEntities: true,
