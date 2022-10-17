@@ -9,6 +9,9 @@ import {RiddlePeriodEntity} from "./db/entity/riddle-period.entity";
 import { DailyRiddleModule } from './daily-riddle/daily-riddle.module';
 import {EventEmitterModule} from "@nestjs/event-emitter";
 import {ConfigModule} from "@nestjs/config";
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+
 
 @Module({
   imports: [ConfigModule.forRoot(),
@@ -28,7 +31,11 @@ import {ConfigModule} from "@nestjs/config";
 
     }),
     EventEmitterModule.forRoot(),
-      RiddleModule,RiddlePeriodModule, DailyRiddleModule],
+      RiddleModule,RiddlePeriodModule, DailyRiddleModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+      exclude: ['/api*'],
+    }),],
   controllers: [AppController],
   providers: [AppService],
 })
