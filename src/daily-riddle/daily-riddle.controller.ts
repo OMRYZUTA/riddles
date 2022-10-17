@@ -18,6 +18,6 @@ export class DailyRiddleController {
     }
 
     private getMiscData() {
-        return {linkToShare:`http://localhost:3000/daily_riddle`}
+        return {linkToShare:`http://myfirstwebappbeanstalk-env.eba-izzjtnrd.eu-central-1.elasticbeanstalk.com/`}
     }
 }
