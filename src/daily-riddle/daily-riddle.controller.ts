@@ -18,6 +18,6 @@ export class DailyRiddleController {
     }
 
     private getMiscData() {
-        return {linkToShare:`http://myfirstwebappbeanstalk-env.eba-izzjtnrd.eu-central-1.elasticbeanstalk.com/`}
+        return {linkToShare:`https://zutariddles.click/`}
     }
 }
