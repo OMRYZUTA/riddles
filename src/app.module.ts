@@ -11,6 +11,8 @@ import {EventEmitterModule} from "@nestjs/event-emitter";
 import {ConfigModule} from "@nestjs/config";
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { RiddlePhotoService } from './riddle-photo/riddle-photo.service';
+import { RiddlePhotoModule } from './riddle-photo/riddle-photo.module';
 
 
 @Module({
@@ -35,7 +37,8 @@ import { join } from 'path';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
       exclude: ['/api*'],
-    }),],
+    }),
+    RiddlePhotoModule,],
   controllers: [AppController],
   providers: [AppService],
 })

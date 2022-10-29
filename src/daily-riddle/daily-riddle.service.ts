@@ -3,14 +3,22 @@ import {RiddlePeriodService} from "../riddle-period/riddle-period.service";
 import {RiddleService} from "../riddle/riddle.service";
 import {RiddleEntity} from "../db/entity/riddle.entity";
 import {RiddlePeriodEntity} from "../db/entity/riddle-period.entity";
+import {RiddlePhotoService} from "../riddle-photo/riddle-photo.service";
 
 @Injectable()
 export class DailyRiddleService {
     private dailyRiddle: RiddleEntity | null
     private currentRiddlePeriod: RiddlePeriodEntity | null
+    private dailyPhotoUrl: string | null
 
     constructor(private riddlePeriodSerivce: RiddlePeriodService,
-                private riddleService: RiddleService) {
+                private riddleService: RiddleService,
+                private riddlePhotoService: RiddlePhotoService) {
+    }
+    public async getDailyRiddlePayload(){
+        let dailyRiddle = await this.getDailyRiddle()
+        let riddlePhoto = await this.getDailyPhoto()
+        return{dailyRiddle, riddlePhoto}
     }
 
     async getDailyRiddle() {
@@ -34,7 +42,6 @@ export class DailyRiddleService {
             await this.activateNewRiddle();
         }
 
-
         return this.dailyRiddle
     }
 
@@ -48,5 +55,12 @@ export class DailyRiddleService {
         } else {
             Logger.error('Error! no available riddle!!')
         }
+    }
+
+    private async getDailyPhoto() {
+        if(this.dailyPhotoUrl == undefined){
+            this.dailyPhotoUrl = await this.riddlePhotoService.getPhoto(this.dailyRiddle?.answer)
+        }
+        return this.dailyPhotoUrl
     }
 }

@@ -7,17 +7,18 @@ export class DailyRiddleController {
     }
     @Get()
     async getDailyRiddle(){
-        const dailyRiddle =  await this.dailyriddleService.getDailyRiddle()
-        Logger.log(`dailyRiddle id : ${dailyRiddle!.id}`)
-        const miscData = this.getMiscData()
+        const dailyRiddlePayload =  await this.dailyriddleService.getDailyRiddlePayload()
+        Logger.log(`dailyRiddle id : ${dailyRiddlePayload.dailyRiddle!.id}`)
+        const miscData = {...this.getMiscData(), riddlePhoto: dailyRiddlePayload.riddlePhoto}
         return{payload:{
-            dailyRiddle,
+                dailyRiddle: dailyRiddlePayload.dailyRiddle,
                 miscData
             }}
 
     }
 
     private getMiscData() {
+
         return {linkToShare:`https://zutariddles.click/`}
     }
 }
