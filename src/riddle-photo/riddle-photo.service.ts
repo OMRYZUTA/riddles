@@ -9,6 +9,6 @@ export class RiddlePhotoService {
     }
     public async getPhoto(query: string | undefined){
         let res =  await this.client.photos.search({query,per_page: 1})
-        return res.photos[0].src.medium
+        return res.photos[0].src.small
     }
 }
